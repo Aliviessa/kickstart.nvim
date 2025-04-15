@@ -657,12 +657,12 @@ require('lazy').setup({
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
-      require('lspconfig').gdscript.setup(capabilities)
-      require('lspconfig')['gdscript'].setup {
-        name = 'godot',
-        cmd = vim.lsp.rpc.connect('127.0.0.1', 6005),
-      }
+      capabilities = require('blink.cmp').get_lsp_capabilities()
+      --require('lspconfig').gdscript.setup(capabilities)
+      --require('lspconfig')['gdscript'].setup {
+      --  name = 'godot',
+      --  cmd = vim.lsp.rpc.connect('127.0.0.1', 6005),
+      --}
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -886,14 +886,7 @@ require('lazy').setup({
     -- 'folke/tokyonight.nvim',
     'echasnovski/mini.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
+    init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
